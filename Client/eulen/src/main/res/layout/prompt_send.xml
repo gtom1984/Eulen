@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textTitleComposeDialogTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_send_to"
+            android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.Holo.Widget.TextView"
+            android:textSize="16dp" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerContactSelect"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textTitleComposeDialogMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_send_message"
+        android:textStyle="bold"
+        android:textAppearance="@android:style/TextAppearance.Holo.Widget.TextView"
+        android:textSize="16dp" />
+    <LinearLayout
+        android:id="@+id/photoFrame"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:padding="1dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoThumb"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/action_photo"
+            android:onClick="photoRotate" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editTextComposeMessage"
+        android:gravity="top"
+        android:hint=""
+        android:minLines="5"
+        android:maxLength="@integer/config_message_size"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end">
+
+        <TextView
+            android:id="@+id/textTitleRemainingKeys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_send_remaining"
+            android:textAppearance="@android:style/TextAppearance.Holo.Widget.TextView"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/textTitleKeyCount"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="@string/zero"
+            android:textAppearance="@android:style/TextAppearance.Holo.Widget.TextView"
+            android:textSize="16dp"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+
+</LinearLayout>

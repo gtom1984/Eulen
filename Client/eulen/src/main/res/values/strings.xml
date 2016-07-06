@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="oauth">oauth2:https://www.googleapis.com/auth/userinfo.email</string>
+    <string name="server">https://eulenserver.tomkowapp.com/command</string>
+
+    <!-- main -->
+    <string-array name="mainMenuOptions">
+        <item>Sign Out</item>
+        <item>Reset Passphrase</item>
+        <item>Delete Account</item>
+    </string-array>
+
+    <string name="email_title">E-Mail Developer</string>
+    <string name="add_a_contact">Tap this button to beam your contact or have a friend tap their button to beam to you.</string>
+    <string name="email_address">gtom1984@gmail.com</string>
+    <string name="email_subject">Eulen Feedback</string>
+    <string name="email_error">There are no email clients installed.</string>
+    <string name="email_toast">E-Mail the developer to report bugs or provide general feedback.</string>
+
+   <!-- configuration items -->
+    <string name="app_name">Eulen</string>
+    <string name="title_messages">Messages</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="descript_contact">contact</string>
+    <string name="action_compose">Compose</string>
+    <string name="action_photo">Photo</string>
+
+    <string name="action_contacts">Add Contact</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_lock">Lock App</string>
+    <string name="zero">0</string>
+    <string name="action_password">Reset Passphrase &amp; PIN</string>
+    <string name="action_delete">Delete Account</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_account">Google Account</string>
+    <string name="title_reg_passphrase">Create Passphrase</string>
+    <string name="title_reg_pin">Create PIN</string>
+    <string name="title_passphrase">Passphrase</string>
+    <string name="title_pin">PIN</string>
+    <string name="title_passphrase_new">New Passphrase</string>
+    <string name="title_pin_new">New PIN</string>
+    <string name="button_register">Register</string>
+    <string name="checkbox_remember">Remember</string>
+    <string name="text_saved">(passphrase saved)</string>
+    <string name="diaglog_nfc_saved_error">Clear your saved passphrase before attempting to login with an NFC tag.</string>
+    <string name="button_login">Login</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_set">Set</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="text_passphrase">(Passphrase scanned)</string>
+    <string name="title_NFC_rekey">You can hold your NFC tag to your device to set your new passphrase and PIN.</string>
+    <string name="title_NFC_login">You can hold your registered NFC tag to your device to automatically enter your passphrase.</string>
+    <string name="title_nfc">(Optional) You can hold a NFC tag to your device to trigger the registration process and enable quick logon.  Then you can login by simply tapping the tag to your device.</string>
+    <string name="alert_validation">Please choose your Google account and create a passphrase (8+ characters) / pin (4 numbers) before attempting to register.</string>
+    <string name="alert_validation_rekey">Please choose a valid passphrase (8+ characters) / pin (4 numbers).</string>
+    <string name="alert_login">Please enter a valid passphrase and pin.</string>
+    <string name="alert_login_error">Login error: Cannot decrypt local storage.</string>
+    <string name="alert_nfc_on">NFC is required to use Eulen. Please turn on NFC.</string>
+    <string name="alert_nfc_no">No NFC adapter detected.  NFC is required to use Eulen.</string>
+    <string name="alert_registration">Registration failed.  Common causes: You are having connection issues, your device is low on space, or the Eulen server is down.</string>
+    <string name="alert_title_error">Error</string>
+    <string name="alert_title_signin">Info</string>
+    <string name="alert_server_error">Server error</string>
+    <string name="alert_delete_error">An error occurred while attempting to delete your account.  You can manually delete your account at http://www.tomkowapp.com/eulen  If you already deleted your account please reload Eulen for the change to take effect.</string>
+    <string name="alert_error_nfc">Error writing NFC tag.</string>
+    <string name="error_photo">Camera or storage error</string>
+    <string name="alert_gcm_fail">Failed to connect to Google Play Services, please check your network connection and try again.</string>
+    <string name="alert_delete">Are you sure you want to delete your Eulen account?</string>
+    <string name="alert_reregister">The Google Account you selected is already registered on another device or no longer exists.  Do you wish to clean up your current account settings and then re-register on this device?  This will erase all your messages.  (Tip:  You can delete your Eulen account at www.tomkowapp.com/eulen if you lost your device.)"</string>
+    <string name="alert_passworderror">Failed to authenticate Eulen account.  Access denied.</string>
+    <string name="alert_unregister">Are you sure you want to delete your Eulen account and all of your messages?</string>
+    <string name="error_register">Registration error</string>
+    <string name="toast_nfcfail">Failed to read NFC Tag</string>
+    <string name="notification_gcm">New Message</string>
+    <string name="notification_gcm_error">GCM Error</string>
+
+    <!-- all -->
+    <string name="ok">OK</string>
+    <string name="alert_network">Network connection failure</string>
+    <string name="error_network">Server connection failed</string>
+    <string name="error_json">Unreadable data</string>
+    <string name="error_dateconv">Invalid date</string>
+    <string name="error_db_store">Storage error</string>
+    <string name="error_decrypt">Decryption failure</string>
+    <string name="error_char">Bad character - </string>
+    <string name="error_len">Bad length - </string>
+    <string name="error_JSON_err">JSON error: </string>
+    <string name="descript_eulen">Eulen logo</string>
+
+    <string name="error_integrity">Integrity failure</string>
+    <string name="error_key_missing">No valid key</string>
+    <string name="new_message">message(s) received</string>
+    <string name="new_message_header">Message</string>
+
+    <string name="toast_refresh_block">Please wait until sync is complete</string>
+
+    <string name="progress">Please wait&#8230;</string>
+    <string name="progress_deleting">Deleting</string>
+    <string name="progress_rekeying">Rekeying</string>
+    <string name="progress_creating">Creating Database</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="progress_message_server">Transferring</string>
+    <string name="progress_storing">Storing</string>
+    <string name="progress_loading">Loading</string>
+    <string name="progress_message_regid">Registering with messaging service</string>
+    <string name="progress_message_generic">Processing request</string>
+    <string name="progress_message_regserver">Registering Eulen account</string>
+    <string name="progress_message_confirm">Confirming Eulen account</string>
+    <string name="title_activity_login">Eulen Login</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_start">start</string>
+    <string name="title_activity_rekey">Reset Passphrase &amp; PIN</string>
+    <string name="title_activity_addcontact">Send contact keys</string>
+    <string name="gcm_bad_password">Failed access attempt</string>
+    <string name="warning_rekey">Be careful when resetting your passphrase and PIN because you cannot reset it if you forget it.</string>
+
+    <!-- add contacts -->
+    <string name="title_step1">Beam</string>
+    <string name="title_step2">Sent</string>
+    <string name="title_step2explain">Press done to return to the inbox and wait for the "unverified contact" message.  You must open the message to use this contact.</string>
+    <string name="descript_step2">keys beamed</string>
+    <string name="descript_step1">beam keys</string>
+    <string name="button_beamkeys">Beam Keys</string>
+    <string name="button_back">Back</string>
+    <string name="button_done">Done</string>
+    <string name="dialog_inprog">WARNING:  You will lose all unconfirmed contacts if you hit continue.</string>
+    <string name="progress_generating">Generating Keys</string>
+    <string name="title_activity_beam">Add Contact</string>
+    <string name="hint_contact_name">Enter a name for your contact</string>
+    <string name="contact_error">Please enter a unique contact name that is at least one character long.</string>
+    <string name="unverified_user">Unverified Contact</string>
+    <string name="unnamed_user">Unidentified Contact</string>
+    <string name="error_key_exchange">The key exchange was interrupted, please try again.</string>
+
+    <string name="error_contact_overquota">You already have 25 contacts, please delete a contact before attempting to add.</string>
+
+    <!-- beam -->
+    <string name="contact_beam_success">New contact added.</string>
+    <string name="contact_beam_success_OK">Now press OK to sync your contact info with the contact you just added.  They will have to open the "unverified contact" message before they can send you messages.</string>
+    <string name="title_beam_info">Keys have been successfully received, please continue.</string>
+    <string name="title_beam_error">An error occurred while receiving or processing keys, please try again.</string>
+    <string name="diag_keys_assigned">New keys have been assigned to </string>
+    <string name="button_continue">Continue</string>
+    <string name="editText_name_contact">Contact name:</string>
+    <string name="title_receive_contact">Received</string>
+    <string name="store_keys_error">Unable to store keys.</string>
+    <string name="beam_login">Please login to Eulen to continue.</string>
+    <string name="toast_name_duplicate">Name already in use, please choose a unique name.</string>
+
+    <!-- send message -->
+    <string name="descript_send">compose message</string>
+    <string name="send_message">Message</string>
+    <string name="descript_message">message</string>
+    <string name="title_send_to">To:</string>
+    <string name="title_send_message">Message:</string>
+    <string name="button_send">Send</string>
+    <string name="error_nocontacts">You have no contacts with keys to send to.  Please add a contact or more keys before attempting to send a message.</string>
+    <string name="invalid_char">Invalid character.</string>
+    <string name="message_to">Invalid recipient.</string>
+    <string name="message_full">Your message cannot be sent because the recipient\'s inbox is full.</string>
+    <string name="message_sent">Message sent</string>
+    <string name="message_fail">Message transfer failed.  Please retry the transfer or discard the message.</string>
+    <string name="button_retry">Retry</string>
+    <string name="button_discard">Discard</string>
+    <string name="photo_loading">Loading photo</string>
+    <string name="photo_encrypt">Encrypting photo</string>
+    <string name="photo_delete_failure">Photo file deletion failed</string>
+    <string name="photo_encrypt_error">Encryption error</string>
+    <string name="message_outbox_full">Warning: An unverified contact has a full inbox.</string>
+    <string name="message_outbox_noexist">Warning: An unverified contact no longer exists.</string>
+    <string name="outbox_error">Error syncing contact data</string>
+    <string name="title_send_remaining">Remaining keys:</string>
+    <string name="warning">Warning</string>
+    <string name="alert_lastkey">There is one remaining key for this contact and it will be used if you send this message.  You will have to re-add this contact to obtain more messages.</string>
+    <string name="progress_syncing_outgoing_request">Syncing contact(s).</string>
+    <string name="no_keys">No keys could be found for this contact.</string>
+    <string name="error_filesystem">File system error.</string>
+    <string name="decrypting">Decrypting</string>
+    <string name="new_messages">message(s)</string>
+
+
+
+ <!-- contact list -->
+    <string name="item_contact_date">Date: </string>
+    <string name="item_contact_keys">Keys: </string>
+    <string name="contact_nodata">No contacts.</string>
+    <string name="contact_user_actions">Modify Contact</string>
+    <string name="delete">Delete</string>
+    <string name="rename">Rename</string>
+    <string name="confirm_contact_delete">Are you sure you want to delete this contact?</string>
+
+    <string name="contact_verify">Contact Verification</string>
+
+    <string name="progress_contact">Verifying contact</string>
+    <string name="info_contactVerified">Keys Verified</string>
+    <string name="info_contact_keys">Unverified keys have been successfully assigned to </string>
+    <string name="info_contact_unver_start">You have successfully verified the contact that was added: </string>
+    <string name="info_clean_contacts">Warning: This will erase all unverified contacts and their data.</string>
+    <string name="button_clean">Clean</string>
+    <string name="progress_upgrading">Upgrading</string>
+    <string name="progress_cleaning">Cleaning</string>
+
+    <!-- message list -->
+    <string name="message_inbox_full">Inbox full.</string>
+    <string name="message_inbox_full_server">Server inbox full.</string>
+    <string name="textTitleMessageFrom">From: </string>
+    <string name="textTitleMessageCount">Remaining: </string>
+
+    <string name="textNoMessage">No Messages</string>
+    <string name="textNoContacts">No Contacts</string>
+
+</resources>

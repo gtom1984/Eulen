@@ -1,0 +1,57 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.06"
+        android:gravity="center_horizontal"
+        android:background="@drawable/background"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/title_step1"
+            android:id="@+id/textView_step1"
+            android:gravity="bottom"
+            android:textStyle="bold"
+            android:textSize="50dp"
+            android:padding="10dp"
+            android:textColor="@android:color/black" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff">
+            <ImageView
+                android:contentDescription="@string/descript_step1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/imageView"
+                android:src="@drawable/step1" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_cancel"
+                android:id="@+id/button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="buttonCancelContactAdd" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
