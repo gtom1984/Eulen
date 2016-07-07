@@ -28,7 +28,7 @@ public class EulenOTP {
         KeyOTP keys = new KeyOTP(userID, total);
 
         try {
-            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            SecureRandom random = SecureRandom.getInstance();
 
             for (int i = 0; i <= total; i++) {
                 char key[] = new char[size];
