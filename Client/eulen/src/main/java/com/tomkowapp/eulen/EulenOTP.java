@@ -28,7 +28,7 @@ public class EulenOTP {
         KeyOTP keys = new KeyOTP(userID, total);
 
         try {
-            SecureRandom random = SecureRandom.getInstance();
+            SecureRandom random = new SecureRandom();
 
             for (int i = 0; i <= total; i++) {
                 char key[] = new char[size];
@@ -49,7 +49,7 @@ public class EulenOTP {
 
                 keys.add(UUID.randomUUID().toString(), new String(key), flag);
             }
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             // do nothing
         }
 
