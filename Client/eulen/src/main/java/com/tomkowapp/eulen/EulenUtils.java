@@ -15,10 +15,10 @@ import java.security.SecureRandom;
 
 // various reusable utlities for the application
 
-public class EulenUtils {
+class EulenUtils {
 
     // hashing method
-    public final String sha(String input) {
+    final String sha(String input) {
 
         String hash = null;
 
@@ -39,13 +39,13 @@ public class EulenUtils {
     }
 
     // simple password generator
-    public static String passwordGenerator() {
+    static String passwordGenerator() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(32);
     }
 
     // network connection check
-    public boolean networkConnection(Context context) {
+    boolean networkConnection(Context context) {
         boolean isConnected;
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -63,7 +63,7 @@ public class EulenUtils {
     }
 
     // cursor copier to allow for closing within database object
-    public MatrixCursor copyCursor(Cursor cursor) {
+    MatrixCursor copyCursor(Cursor cursor) {
         MatrixCursor matrixCursor;
 
         if (cursor != null) {

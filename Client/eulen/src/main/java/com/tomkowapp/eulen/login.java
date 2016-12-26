@@ -1,6 +1,5 @@
 package com.tomkowapp.eulen;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -11,14 +10,11 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
 import android.text.method.PasswordTransformationMethod;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -28,12 +24,6 @@ import org.json.JSONObject;
 public class login extends nfctagbase implements AsyncResponse {
 
     private String[] values = null;
-    private static EditText editTextPassphrase;
-    private static EditText editTextPin;
-    private static Button buttonLogin;
-    private static Button buttonClear;
-    private static CheckBox checkRemember;
-
     private static String NFCResult = null;
     private static String savedPassphrase = null;
     private EulenDatabase eulenDatabase;
@@ -76,67 +66,27 @@ public class login extends nfctagbase implements AsyncResponse {
             toolbar.setTitle(getString(R.string.title_activity_login));
         }
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.containerLogin, new PlaceholderFragment())
-                    .commit();
-        }
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphraseLogin);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPinLogin);
+        CheckBox checkRemember = (CheckBox) findViewById(R.id.checkRemember);
 
-    }
-
-    // placeholder fragment
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
-            TextView textPassphrase;
-            TextView textPin;
-            TextView textNFC;
-
-            editTextPassphrase = (EditText) rootView.findViewById(R.id.editTextPassphraseLogin);
-            editTextPin = (EditText) rootView.findViewById(R.id.editTextPinLogin);
-            buttonLogin = (Button) rootView.findViewById(R.id.buttonLogin);
-            buttonClear = (Button) rootView.findViewById(R.id.buttonClear);
-            textPassphrase = (TextView) rootView.findViewById(R.id.textPassLogin);
-            textPin = (TextView) rootView.findViewById(R.id.textPinLogin);
-            textNFC = (TextView) rootView.findViewById(R.id.textNFCLogin);
-            textNFC.setText(getString(R.string.title_NFC_login));
-            checkRemember = (CheckBox) rootView.findViewById(R.id.checkRemember);
-            buttonClear.setText(getString(R.string.button_clear));
-            buttonLogin.setText(getString(R.string.button_login));
-            textPassphrase.setText(getString(R.string.title_passphrase));
-            textPin.setText(getString(R.string.title_pin));
-            checkRemember.setVisibility(View.VISIBLE);
-            editTextPin.setText("");
-            editTextPassphrase.setText("");
-
-            // handle views for NFC tag logins and saved passphrase
-            if(NFCResult != null) {
-                editTextPassphrase.setText(getString(R.string.text_passphrase));
-                editTextPassphrase.setTransformationMethod(null);
-                editTextPassphrase.setEnabled(false);
-            } else if (savedPassphrase != null) {
-                editTextPassphrase.setText(getString(R.string.text_saved));
-                editTextPassphrase.setTransformationMethod(null);
-                editTextPassphrase.setEnabled(false);
-                checkRemember.setChecked(true);
-                checkRemember.setEnabled(false);
-                editTextPin.setFocusableInTouchMode(true);
-                editTextPin.requestFocus();
-                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            } else {
-                checkRemember.setChecked(false);
-                checkRemember.setEnabled(true );
-            }
-
-            return rootView;
+        // handle views for NFC tag logins and saved passphrase
+        if(NFCResult != null) {
+            editTextPassphrase.setText(getString(R.string.text_passphrase));
+            editTextPassphrase.setTransformationMethod(null);
+            editTextPassphrase.setEnabled(false);
+        } else if (savedPassphrase != null) {
+            editTextPassphrase.setText(getString(R.string.text_saved));
+            editTextPassphrase.setTransformationMethod(null);
+            editTextPassphrase.setEnabled(false);
+            checkRemember.setChecked(true);
+            checkRemember.setEnabled(false);
+            editTextPin.setFocusableInTouchMode(true);
+            editTextPin.requestFocus();
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            checkRemember.setChecked(false);
+            checkRemember.setEnabled(true );
         }
     }
 
@@ -144,8 +94,11 @@ public class login extends nfctagbase implements AsyncResponse {
         clearForm();
     }
 
-    // clear login form
     private void clearForm() {
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphraseLogin);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPinLogin);
+        CheckBox checkRemember = (CheckBox) findViewById(R.id.checkRemember);
+
         savedPassphrase = null;
         NFCResult = null;
         prefs.edit().remove(CONST.PREFS_PASSPHRASE).apply();
@@ -162,6 +115,11 @@ public class login extends nfctagbase implements AsyncResponse {
     }
 
     public void loginButton(View view) {
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphraseLogin);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPinLogin);
+        Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
+        Button buttonClear = (Button) findViewById(R.id.buttonClear);
+        CheckBox checkRemember = (CheckBox) findViewById(R.id.checkRemember);
 
         String passphrase;
         String pin;
@@ -220,9 +178,12 @@ public class login extends nfctagbase implements AsyncResponse {
         savedPassphrase = prefs.getString(CONST.PREFS_PASSPHRASE, null);
 
         if(NFCResult != null || savedPassphrase != null) {
-            editTextPin.setFocusableInTouchMode(true);
-            editTextPin.requestFocus();
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            EditText editTextPin = (EditText) findViewById(R.id.editTextPinLogin);
+            if(editTextPin != null) {
+                editTextPin.setFocusableInTouchMode(true);
+                editTextPin.requestFocus();
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            }
         }
     }
 
@@ -266,12 +227,19 @@ public class login extends nfctagbase implements AsyncResponse {
 
     // GUI unlock for login screen
     private void enableGUI() {
-        if(NFCResult == null) {
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphraseLogin);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPinLogin);
+        Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
+        Button buttonClear = (Button) findViewById(R.id.buttonClear);
+
+        if(NFCResult == null && editTextPassphrase != null) {
             editTextPassphrase.setEnabled(true);
         }
-        editTextPin.setEnabled(true);
-        buttonLogin.setEnabled(true);
-        buttonClear.setEnabled(true);
+        if(editTextPin != null & buttonLogin != null & buttonClear != null) {
+            editTextPin.setEnabled(true);
+            buttonLogin.setEnabled(true);
+            buttonClear.setEnabled(true);
+        }
     }
 
     public void postDatabase(int returnCode, Cursor cursor) {

@@ -6,15 +6,14 @@ import android.text.Spanned;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.UUID;
 
 // handle one time pad related encryption, decryption and input validation
 
-public class EulenOTP {
+class EulenOTP {
     //one time pad character set
-    final static public char[] charset = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+    final static private char[] charset = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n',
             'o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I',
             'J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3',
             '4','5','6','7','8','9',' ','.',',','!','?','@','#','$','%','&','^','*','~','`','-',
@@ -22,7 +21,7 @@ public class EulenOTP {
 
 
     // create keys using secure random
-    public KeyOTP generateKey(String userID, int amount, int size) {
+    KeyOTP generateKey(String userID, int amount, int size) {
         final int total = amount * 2;
 
         KeyOTP keys = new KeyOTP(userID, total);
@@ -69,7 +68,7 @@ public class EulenOTP {
     }
 
     // OTP encryption
-    public String encrypt(final String message, final char[] key) {
+    String encrypt(final String message, final char[] key) {
         final boolean valid = validate(message);
 
         if(!valid || key == null || key.length < 1) {
@@ -106,7 +105,7 @@ public class EulenOTP {
     }
 
     // OTP decryption
-    public final String[] decrypt(final String data, final char[] key) {
+    final String[] decrypt(final String data, final char[] key) {
         final boolean valid = validate(data);
 
         if(!valid || key == null || key.length < 1) {
@@ -205,7 +204,7 @@ public class EulenOTP {
     }
 
     // input filter for OTP text input to prevent invalid entries
-    public InputFilter[] inputFilter(final Context context) {
+    InputFilter[] inputFilter(final Context context) {
         InputFilter filters[] = new InputFilter[2];
         filters[0] = new InputFilter.LengthFilter(context.getResources().getInteger(R.integer.config_message_size));
         filters[1] = new InputFilter() {

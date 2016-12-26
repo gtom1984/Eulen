@@ -19,13 +19,13 @@ import javax.crypto.spec.SecretKeySpec;
 
 // photo encryption and modification class
 
-public class PhotoUtils {
-    static final String AES_CIPHER = "AES/CBC/PKCS5Padding";
-    static final String AES_KEY_FACTORY = "PBKDF2WithHmacSHA1";
-    static final String AES_KEY_SPEC = "AES";
+class PhotoUtils {
+    private static final String AES_CIPHER = "AES/CBC/PKCS5Padding";
+    private static final String AES_KEY_FACTORY = "PBKDF2WithHmacSHA1";
+    private static final String AES_KEY_SPEC = "AES";
 
     // image scaling
-    public static Bitmap scaleImage(File photoFile, int height, int width) {
+    static Bitmap scaleImage(File photoFile, int height, int width) {
         // get source bitmap size
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inJustDecodeBounds = true;
@@ -43,7 +43,7 @@ public class PhotoUtils {
     }
 
     // image flip
-    public static Bitmap flipImage(Bitmap source) {
+    static Bitmap flipImage(Bitmap source) {
         Matrix matrix = new Matrix();
         matrix.preScale(-1.0f, 1.0f);
         return Bitmap.createBitmap(
@@ -51,7 +51,7 @@ public class PhotoUtils {
     }
 
     // encrypt photo and return base64 string
-    public static String encrypt(Bitmap photo, String encryptionKey, int quality) {
+    static String encrypt(Bitmap photo, String encryptionKey, int quality) {
         try {
             // split key for salt and password
             String salt = encryptionKey.substring(0, 40);
@@ -92,7 +92,7 @@ public class PhotoUtils {
     }
 
     // decrypt photo and return base64 string
-    public static String decrypt(String encoded, String encryptionKey) {
+    static String decrypt(String encoded, String encryptionKey) {
         try {
             // split key for password and salt
             String salt = encryptionKey.substring(0, 40);
@@ -128,7 +128,7 @@ public class PhotoUtils {
     }
 
     // convert base64 string to bitmap
-    public static Bitmap base64toBitmap(String encoded) {
+    static Bitmap base64toBitmap(String encoded) {
         byte[] data = Base64.decode(encoded, Base64.NO_WRAP);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;

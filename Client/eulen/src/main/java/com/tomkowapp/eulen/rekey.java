@@ -1,27 +1,17 @@
 package com.tomkowapp.eulen;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import org.json.JSONObject;
 
 // handle database key changes (change passphrase or pin)
 
 public class rekey extends nfctagbase implements AsyncResponse {
-    private static EditText editTextPassphrase;
-    private static EditText editTextPin;
-    private static Button buttonLogin;
-    private static Button buttonClear;
-
     String pin;
     EulenDatabase eulenDatabase;
     EulenUtils eulenUtils = new EulenUtils();
@@ -35,7 +25,7 @@ public class rekey extends nfctagbase implements AsyncResponse {
         startNFC(this);
         handleIntent(getIntent());
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_rekey);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLogin);
         setSupportActionBar(toolbar);
@@ -47,13 +37,6 @@ public class rekey extends nfctagbase implements AsyncResponse {
         if(getCreds()) {
             eulenDatabase = new EulenDatabase(this, this, this);
         }
-
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.containerLogin, new PlaceholderFragment())
-                    .commit();
-        }
-
 
         // warning to user
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -74,44 +57,13 @@ public class rekey extends nfctagbase implements AsyncResponse {
         postResume();
     }
 
-    // placeholder fragment
-    public static class PlaceholderFragment extends Fragment {
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
-            TextView textPassphrase;
-            TextView textPin;
-            TextView textNFC;
-
-            editTextPassphrase = (EditText) rootView.findViewById(R.id.editTextPassphraseLogin);
-            editTextPin = (EditText) rootView.findViewById(R.id.editTextPinLogin);
-            buttonLogin = (Button) rootView.findViewById(R.id.buttonLogin);
-            buttonClear = (Button) rootView.findViewById(R.id.buttonClear);
-            textPassphrase = (TextView) rootView.findViewById(R.id.textPassLogin);
-            textPin = (TextView) rootView.findViewById(R.id.textPinLogin);
-            textNFC = (TextView) rootView.findViewById(R.id.textNFCLogin);
-            textNFC.setText(getString(R.string.title_NFC_rekey));
-            buttonClear.setText(getString(R.string.button_cancel));
-            buttonLogin.setText(getString(R.string.button_set));
-            textPassphrase.setText(getString(R.string.title_passphrase_new));
-            textPin.setText(getString(R.string.title_pin_new));
-
-            return rootView;
-        }
-    }
-
     // clear form
     public void clearButton(View view) {
         gotoMain(this);
     }
 
     // rekey DB
-    public void loginButton(View view) {
+    public void rekeyButton(View view) {
         if(validate()) {
             rekeyDatabase(passphrase, pin);
         }
@@ -121,6 +73,9 @@ public class rekey extends nfctagbase implements AsyncResponse {
     @Override
     protected boolean validate() {
         String hash;
+
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphraseRekey);
+        EditText editTextPin  = (EditText) findViewById(R.id.editTextPinRekey);
 
         hash = eulenUtils.sha(editTextPassphrase.getText().toString());
 
@@ -154,10 +109,20 @@ public class rekey extends nfctagbase implements AsyncResponse {
     }
 
     private void lockGUI() {
-        editTextPassphrase.setEnabled(false);
-        editTextPin.setEnabled(false);
-        buttonLogin.setEnabled(false);
-        buttonClear.setEnabled(false);
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphraseRekey);
+        EditText editTextPin  = (EditText) findViewById(R.id.editTextPinRekey);
+        Button buttonLogin = (Button) findViewById(R.id.buttonRekey);
+        Button buttonClear = (Button) findViewById(R.id.buttonClear);
+
+        if(editTextPassphrase != null &
+                editTextPin != null &
+                buttonLogin != null &
+                buttonClear != null) {
+            editTextPassphrase.setEnabled(false);
+            editTextPin.setEnabled(false);
+            buttonLogin.setEnabled(false);
+            buttonClear.setEnabled(false);
+        }
     }
 
     // if back button pressed

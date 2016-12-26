@@ -1,12 +1,10 @@
 package com.tomkowapp.eulen;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -33,16 +31,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 // Eulen Server transfer and response logic
 
-public class EulenClient {
+class EulenClient {
     final Activity activity;
-    final Context context;
-    final String email;
-    final AsyncResponse callback;
-    final String serverPassword;
+    private final Context context;
+    private final String email;
+    private final AsyncResponse callback;
+    private final String serverPassword;
 
     int returnCode = 0;
 
-    String errorCode = null;
+    private String errorCode = null;
 
     // with new password
     EulenClient(final Activity activity, final Context context,
@@ -100,7 +98,7 @@ public class EulenClient {
     }
 
     // sends a message on background thread
-    public void send(Message message, int returnCode) {
+    void send(Message message, int returnCode) {
         this.returnCode = returnCode;
 
         HashMap<String, String> postVars = new HashMap<>();
@@ -112,7 +110,7 @@ public class EulenClient {
     }
 
     // sends photo on background thread
-    public void sendPhoto(Message message, int returnCode) {
+    void sendPhoto(Message message, int returnCode) {
         this.returnCode = returnCode;
 
         HashMap<String, String> postVars = new HashMap<>();
@@ -125,7 +123,7 @@ public class EulenClient {
 
     // syncs pending out going pairing message on main thread. (wrap in async)
     // Pairing messages are used for securely associating new users
-    public JSONObject syncOutbox(Message message) {
+    JSONObject syncOutbox(Message message) {
         HashMap<String, String> postVars = new HashMap<>();
         postVars.put(CONST.COMMAND, CONST.SEND);
         postVars.put(CONST.PASSWORD, serverPassword);
@@ -137,7 +135,7 @@ public class EulenClient {
     }
 
     // erase message from server on main thread (wrap in async)
-    public void erase(String messageID) {
+    void erase(String messageID) {
         HashMap<String, String> postVars = new HashMap<>();
         postVars.put(CONST.COMMAND, CONST.ERASE);
         postVars.put(CONST.PASSWORD, serverPassword);
@@ -165,13 +163,13 @@ public class EulenClient {
         ProgressDialog progress;
         HashMap<String, String> postVars = new HashMap<>();
 
-        public getEulenData(String email, String command, Boolean progressOn){
+        getEulenData(String email, String command, Boolean progressOn){
             this.email = email;
             this.command = command;
             this.progressOn = progressOn;
         }
 
-        public getEulenData(String email, String command,
+        getEulenData(String email, String command,
                             HashMap<String, String>  postVars, Boolean progressOn){
             this.email = email;
             this.postVars = postVars;

@@ -129,7 +129,7 @@ public class messageList extends ListFragment implements AsyncResponse {
         private String contactName;
         private String photoID;
 
-        public photoLoader(String contactName, String photoID) {
+        photoLoader(String contactName, String photoID) {
             this.contactName = contactName;
             this.photoID = photoID;
         }

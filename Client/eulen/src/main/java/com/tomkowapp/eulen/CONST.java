@@ -15,6 +15,7 @@ public class CONST {
     static final String PREFS = "com.tomkowapp.eulen";
     static final String PREFS_ACCOUNT = "account";
     static final String PREFS_DB_VERSION = "dbversion";
+    static final String PREFS_NOTIFICATIONS = "notifications";
 
     static final String USERID = "userid";
     static final String PASSWORD = "password";

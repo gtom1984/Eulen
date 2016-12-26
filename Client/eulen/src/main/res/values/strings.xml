@@ -6,6 +6,7 @@
     <!-- main -->
     <string-array name="mainMenuOptions">
         <item>Sign Out</item>
+        <item>Notifications</item>
         <item>Reset Passphrase</item>
         <item>Delete Account</item>
     </string-array>
@@ -76,6 +77,11 @@
 
     <!-- all -->
     <string name="ok">OK</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">enabled</string>
+    <string name="disabled">disabled</string>
+    <string name="notification_text">Notifications are </string>
     <string name="alert_network">Network connection failure</string>
     <string name="error_network">Server connection failed</string>
     <string name="error_json">Unreadable data</string>

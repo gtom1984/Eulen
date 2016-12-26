@@ -128,7 +128,7 @@ public class addcontact
     private static class MyHandler extends Handler {
         private final WeakReference<addcontact> mActivity;
 
-        public MyHandler(addcontact activity) {
+        private MyHandler(addcontact activity) {
             mActivity = new WeakReference<>(activity);
         }
 

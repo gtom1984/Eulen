@@ -4,9 +4,9 @@ package com.tomkowapp.eulen;
 
 public class Message {
     public String to;
-    public String UUID;
+    String UUID;
     public String data;
-    public String keyDBID;
+    String keyDBID;
 
     public Message(String to, String UUID, String data) {
         this.to = to;

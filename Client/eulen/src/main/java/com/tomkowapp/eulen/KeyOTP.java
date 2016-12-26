@@ -8,15 +8,13 @@ import java.util.Arrays;
 // Eulen OTP key object class, stores received keys and converts to JSON and stores as NDEF message
 // This is used for beaming keys from one device to another
 
-public class KeyOTP {
-    int total = 0;
-    int i = 0;
+class KeyOTP {
+    private int i = 0;
     private final String userID;
     public String[] values;
-    public NdefMessage ndefMessage;
+    NdefMessage ndefMessage;
 
-    public KeyOTP(String userID, int total) {
-        this.total = total;
+    KeyOTP(String userID, int total) {
         this.userID = userID;
         int valuesInt = (total * 3) + 3;
 

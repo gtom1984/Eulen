@@ -23,6 +23,7 @@ public class GcmIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Bundle extras = intent.getExtras();
+        SharedPreferences prefs = getSharedPreferences(CONST.PREFS, MODE_PRIVATE);
 
         if (!extras.isEmpty()) {  // has effect of unparcelling Bundle
             try {
@@ -32,7 +33,6 @@ public class GcmIntentService extends IntentService {
                     switch (message) {
                         case CONST.SYNC:
                             sendNotification(getString(R.string.notification_gcm));
-                            SharedPreferences prefs;
                             prefs = getSharedPreferences(CONST.PREFS, MODE_PRIVATE);
                             prefs.edit().putLong(CONST.PREFS_SYNCTIME, 0).apply(); //zero out last sync timestamp to force message sync upon resume of open of main Eulen task
                             break;
@@ -58,6 +58,13 @@ public class GcmIntentService extends IntentService {
 
     // Notification bar and Android Wear alerts
     private void sendNotification(String msg) {
+        SharedPreferences prefs = getSharedPreferences(CONST.PREFS, MODE_PRIVATE);
+
+        // stop if user has disabled notifications
+        if(!prefs.getBoolean(CONST.PREFS_NOTIFICATIONS, true)) {
+            return;
+        }
+
         NotificationManager mNotificationManager;
 
         NotificationCompat.WearableExtender wearableExtender =

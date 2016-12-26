@@ -71,10 +71,10 @@ public class EulenDatabase {
 
     SharedPreferences prefs;
 
-    AlertDialog renameDialog;
+    private AlertDialog renameDialog;
 
-    static final String CONST_USERID = "userid";
-    static final String CONST_PASSWORD = "password";
+    private static final String CONST_USERID = "userid";
+    private static final String CONST_PASSWORD = "password";
 
     int returnCode = 0;
 
@@ -88,8 +88,8 @@ public class EulenDatabase {
     private static Query getCreatePhotoTableQueryIndex =
             new Query("CREATE INDEX Keys_Photo on " + TABLE_PHOTOS + "("+ KEY_ID +");");
 
-    final AsyncResponse callback;
-    ProgressDialog progress;
+    private final AsyncResponse callback;
+    private ProgressDialog progress;
 
     EulenDatabase(Context context, Activity activity, AsyncResponse callback) {
         this.context = context;
@@ -118,14 +118,14 @@ public class EulenDatabase {
         database = ((app) activity.getApplication()).getDatabase();
     }
 
-    public void close() {
+    void close() {
         if(database != null && database.isOpen()) {
             ((app) activity.getApplication()).closeDatabase();
             database = null;
         }
     }
 
-    public void deleteDB(int returnCode) {
+    void deleteDB(int returnCode) {
         this.returnCode = returnCode;
 
         databaseOperation task = new databaseOperation(CONST_DELETE);
@@ -133,7 +133,7 @@ public class EulenDatabase {
     }
 
     // database creation
-    public void createDB(String userID, String password, String databaseKey, int returnCode) {
+    void createDB(String userID, String password, String databaseKey, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -184,7 +184,7 @@ public class EulenDatabase {
     }
 
     // database upgrade 1
-    public void upgradeDB_1 (int returnCode) {
+    void upgradeDB_1 (int returnCode) {
         // migrate from version 1 to app version 18+
         this.returnCode = returnCode;
 
@@ -197,7 +197,7 @@ public class EulenDatabase {
     }
 
     // get creds for server transactions
-    public void getCreds(int returnCode) {
+    void getCreds(int returnCode) {
         this.returnCode = returnCode;
         final String query = "SELECT * FROM " + TABLE_CONFIG +
                 " WHERE " + KEY_ITEM + " = ? OR " + KEY_ITEM + " = ?";
@@ -208,7 +208,7 @@ public class EulenDatabase {
     }
 
     // get contact with 1st available key and info
-    public void getRecipients(int returnCode) {
+    void getRecipients(int returnCode) {
         this.returnCode = returnCode;
         final String query =
                 "SELECT " + TABLE_KEYS + "." + KEY_ID + ", " +
@@ -234,7 +234,7 @@ public class EulenDatabase {
     }
 
     // get contacts with details and first available key
-    public void getContacts(int returnCode) {
+    void getContacts(int returnCode) {
         this.returnCode = returnCode;
         final String query = "SELECT " + TABLE_CONTACTS + "." + KEY_ID + ", " +
                 TABLE_CONTACTS + "." + KEY_NAME + ", " +
@@ -260,7 +260,7 @@ public class EulenDatabase {
     }
 
     // load photo from photo table
-    public String getPhoto(String photoID) {
+    String getPhoto(String photoID) {
         String where = KEY_ID + "=?";
         String args[] = {photoID};
         String columns[] = {MESSAGE_DATA};
@@ -280,7 +280,7 @@ public class EulenDatabase {
     }
 
     // get outgoing association messages
-    public void getOutboxMessages(int returnCode) {
+    void getOutboxMessages(int returnCode) {
         this.returnCode = returnCode;
 
         final String query = "SELECT * FROM " + TABLE_OUTBOX;
@@ -290,7 +290,7 @@ public class EulenDatabase {
     }
 
     // load inbox messages
-    public void getInboxMessages(int returnCode) {
+    void getInboxMessages(int returnCode) {
         this.returnCode = returnCode;
         final String query = "SELECT " +
                 TABLE_INBOX + "." +
@@ -318,7 +318,7 @@ public class EulenDatabase {
     }
 
     // get count of inbox messages
-    public int getInboxMessageCount() {
+    int getInboxMessageCount() {
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_INBOX, null);
         int count = cursor.getCount();
         cursor.close();
@@ -326,7 +326,7 @@ public class EulenDatabase {
     }
 
     // confirm a unassociated contact
-    public void confirmContact(String id, String time, int returnCode) {
+    void confirmContact(String id, String time, int returnCode) {
         this.returnCode = returnCode;
 
         processContactVerification task = new processContactVerification(id, time);
@@ -334,17 +334,17 @@ public class EulenDatabase {
     }
 
     // delete outbox message
-    public void deleteOutboxMessage(String id) {
+    void deleteOutboxMessage(String id) {
         database.delete(TABLE_OUTBOX, KEY_ID + "=?", new String[]{id});
     }
 
     // delete outbox placeholder contact
-    public void deleteOutboxContact(String id) {
+    void deleteOutboxContact(String id) {
         database.delete(TABLE_CONTACTS, KEY_USERID + "=?", new String[]{id});
     }
 
     // delete unassociated contacts
-    public void cleanContacts(int returnCode) {
+    void cleanContacts(int returnCode) {
         this.returnCode = returnCode;
         List<Query> queryList = new ArrayList<>();
         queryList.add(new Query("DELETE FROM " + TABLE_INBOX + " WHERE " +
@@ -367,7 +367,7 @@ public class EulenDatabase {
     }
 
     // check for unassociated contacts
-    public void cleanContactsCheck(int returnCode) {
+    void cleanContactsCheck(int returnCode) {
         this.returnCode = returnCode;
         final String query = "SELECT * FROM " + TABLE_CONTACTS +
                 " WHERE " + KEY_USERID + " IS NULL";
@@ -377,7 +377,7 @@ public class EulenDatabase {
     }
 
     // remove older confirmation messages from inbox
-    public void deleteOlderConfirmationMessages(String message) {
+    void deleteOlderConfirmationMessages(String message) {
         //get list of duplicate confirmation messages and contacts using them
         Cursor cursor = database.query(TABLE_INBOX,
                 new String[]{KEY_ID,KEY_CONTACTID},
@@ -400,7 +400,7 @@ public class EulenDatabase {
     }
 
     // get a key by it's UUID
-    public String[] getKey(String UUID) {
+    String[] getKey(String UUID) {
         Cursor cursor = database.rawQuery("SELECT " +
                 KEY_KEY + ", " +
                 KEY_CONTACTID + ", " +
@@ -425,12 +425,12 @@ public class EulenDatabase {
     }
 
     // delete a key by it's UUID
-    public void deletekey(String UUID) {
+    void deletekey(String UUID) {
         database.delete(TABLE_KEYS, KEY_UUID + "=?", new String[]{UUID});
     }
 
     // delete a key by it's ID
-    public void deleteKey(String id, int returnCode) {
+    void deleteKey(String id, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -442,7 +442,7 @@ public class EulenDatabase {
     }
 
     // multi-delete messages
-    public void deleteMessageMulti(List<String> messageIDs, List<String> photoIDs, int returnCode) {
+    void deleteMessageMulti(List<String> messageIDs, List<String> photoIDs, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -460,7 +460,7 @@ public class EulenDatabase {
     }
 
     // multi-delete photos
-    public void deletePhotoMessage(String id, String photoID, int returnCode) {
+    void deletePhotoMessage(String id, String photoID, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -474,7 +474,7 @@ public class EulenDatabase {
     }
 
     // delete single message by ID
-    public void deleteMessage(String id, int returnCode) {
+    void deleteMessage(String id, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -486,7 +486,7 @@ public class EulenDatabase {
     }
 
     // store a text message
-    public long storeMessage(String time, String data, String contactID, String flag) {
+    long storeMessage(String time, String data, String contactID, String flag) {
         Long insertID;
         ContentValues contentValues = new ContentValues();
         contentValues.putNull(KEY_ID);
@@ -500,7 +500,7 @@ public class EulenDatabase {
     }
 
     // store a photo message
-    public long storePhotoMessage(String time, String contactID, String photo) {
+    long storePhotoMessage(String time, String contactID, String photo) {
         Long insertID;
         ContentValues contentValues = new ContentValues();
         contentValues.putNull(KEY_ID);
@@ -514,7 +514,7 @@ public class EulenDatabase {
     }
 
     // store the photo data
-    public long storePhoto(String data) {
+    long storePhoto(String data) {
         Long insertID;
         ContentValues contentValues = new ContentValues();
         contentValues.putNull(KEY_ID);
@@ -524,7 +524,7 @@ public class EulenDatabase {
     }
 
     // rename a contact
-    public void renameContact(final String contactID,
+    void renameContact(final String contactID,
                               final String contactName,
                               final int returnCode) {
             this.returnCode = returnCode;
@@ -577,7 +577,7 @@ public class EulenDatabase {
     }
 
     // delete a contact by ID
-    public void deleteContact(String id, int returnCode) {
+    void deleteContact(String id, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -596,7 +596,7 @@ public class EulenDatabase {
     }
 
     // send a contact DB operation
-    public void sendContact(String values[], int returnCode) {
+    void sendContact(String values[], int returnCode) {
         this.returnCode = returnCode;
 
         sendContact task = new sendContact(values);
@@ -604,7 +604,7 @@ public class EulenDatabase {
     }
 
     // receive contact DB operation
-    public void receiveContact(String values[], String id, String userID, int returnCode) {
+    void receiveContact(String values[], String id, String userID, int returnCode) {
         this.returnCode = returnCode;
 
         receiveContact task = new receiveContact(values, id, userID);
@@ -612,7 +612,7 @@ public class EulenDatabase {
     }
 
     // database rekeying (passphrase and pin change)
-    public void rekey(String newDatabaseKey, int returnCode) {
+    void rekey(String newDatabaseKey, int returnCode) {
         this.returnCode = returnCode;
 
         List<Query> queryList = new ArrayList<>();
@@ -635,17 +635,17 @@ public class EulenDatabase {
         private String id;
         private String progressText = null;
 
-        public databaseOperation(String command) {
+        databaseOperation(String command) {
             this.command = command;
         }
 
-        public databaseOperation(String command, List<Query> queryList, String progressText) {
+        databaseOperation(String command, List<Query> queryList, String progressText) {
             this.command = command;
             this.queryList = queryList;
             this.progressText = progressText;
         }
 
-        public databaseOperation(String command, List<Query> queryList, String databaseKey,
+        databaseOperation(String command, List<Query> queryList, String databaseKey,
                                  String progressText) {
             this.databaseKey = databaseKey;
             this.command = command;
@@ -653,7 +653,7 @@ public class EulenDatabase {
             this.progressText = progressText;
         }
 
-        public databaseOperation(String command,
+        databaseOperation(String command,
                                  String table,
                                  ContentValues contentValues,
                                  String id,
@@ -665,7 +665,7 @@ public class EulenDatabase {
             this.progressText = progressText;
         }
 
-        public databaseOperation(String command,
+        databaseOperation(String command,
                                  String query,
                                  String[] values) {
             this.query = query;
@@ -673,7 +673,7 @@ public class EulenDatabase {
             this.values = values;
         }
 
-        public databaseOperation(String command,
+        databaseOperation(String command,
                                  String query,
                                  String[] values,
                                  String progressText) {
@@ -776,7 +776,7 @@ public class EulenDatabase {
     private class sendContact extends AsyncTask<Void, Void, Void> {
         String[] values = null;
 
-        public sendContact(String values[]) {
+        sendContact(String values[]) {
             this.values = values;
         }
 
@@ -832,7 +832,7 @@ public class EulenDatabase {
         String userID;
         String[] values;
 
-            public receiveContact(String values[], String lookupUserID, String userID) {
+        receiveContact(String values[], String lookupUserID, String userID) {
                 this.values = values;
                 this.lookupUserID = lookupUserID.replaceAll("\\D+","");
                 this.userID = userID.replaceAll("\\D+","");
@@ -956,7 +956,7 @@ public class EulenDatabase {
     }
 
     // get a contact by their user ID
-    public String[] getContactByUSERID(String userID) {
+    private String[] getContactByUSERID(String userID) {
         String result[] = new String[2];
         if(database != null && database.isOpen()) {
 
@@ -994,7 +994,7 @@ public class EulenDatabase {
         String messageID;
         String messageTime;
 
-        public processContactVerification(String messageID, String messageTime) {
+        processContactVerification(String messageID, String messageTime) {
             this.messageID = messageID;
             this.messageTime = messageTime;
         }

@@ -130,7 +130,10 @@ public class main extends baseprefs implements AsyncResponse {
                             menuSelection(6); //reset passphrase
                             break;
                         case 2:
-                            menuSelection(7);  //delete account
+                            menuSelection(7); //reset passphrase
+                            break;
+                        case 3:
+                            menuSelection(8);  //delete account
                             break;
                     }
                     drawerLayout.closeDrawers();
@@ -621,12 +624,27 @@ public class main extends baseprefs implements AsyncResponse {
         if (i == 5) { // lock application
             lockScreen(this);
         }
-        if (i == 6) { // re-key database
+        if (i == 6) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            String notifications_state_text;
+
+            if(prefs.getBoolean(CONST.PREFS_NOTIFICATIONS, true)) {
+                notifications_state_text = getString(R.string.enabled);
+            } else {
+                notifications_state_text = getString(R.string.disabled);
+            }
+
+            builder.setMessage(
+                    getString(R.string.notification_text) + " " + notifications_state_text)
+                    .setPositiveButton(getString(R.string.enable), notificationsListener)
+                    .setNegativeButton(getString(R.string.disable), notificationsListener).show();
+        }
+        if (i == 7) { // re-key database
             Intent intent = new Intent(this, rekey.class);
             startActivity(intent);
             finish();
         }
-        if (i == 7) { // delete Eulen Account
+        if (i == 8) { // delete Eulen Account
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(
                     getString(R.string.alert_unregister))
@@ -785,7 +803,7 @@ public class main extends baseprefs implements AsyncResponse {
         private String UUID;
         private String dbID;
 
-        public photoEncryptSendAsync(String to,
+        photoEncryptSendAsync(String to,
                                      String UUID, char[] encryptionKey, String dbID) {
             this.encryptionKey = encryptionKey;
             this.to = to;
@@ -855,6 +873,24 @@ public class main extends baseprefs implements AsyncResponse {
         photo = PhotoUtils.flipImage(photo);
         photoThumb.setImageBitmap(photo);
     }
+
+    // prompt for notification choice
+    DialogInterface.OnClickListener notificationsListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SharedPreferences prefs = getSharedPreferences(CONST.PREFS, MODE_PRIVATE);
+
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    prefs.edit().putBoolean(CONST.PREFS_NOTIFICATIONS, true).apply();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    prefs.edit().putBoolean(CONST.PREFS_NOTIFICATIONS, false).apply();
+                    break;
+            }
+        }
+    };
 
     // prompt for account deletion
     DialogInterface.OnClickListener deleteAccountListener = new DialogInterface.OnClickListener() {
@@ -1050,7 +1086,7 @@ public class main extends baseprefs implements AsyncResponse {
         Boolean contactDeleted = false;
         ProgressDialog progress = new ProgressDialog(main.this);
 
-        public syncOutboxAsync(Cursor cursor) {
+        syncOutboxAsync(Cursor cursor) {
             this.cursor = cursor;
         }
 

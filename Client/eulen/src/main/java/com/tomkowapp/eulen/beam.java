@@ -24,7 +24,6 @@ import java.util.List;
 public class beam extends baseprefs implements AsyncResponse {
     EulenDatabase eulenDatabase;
     private String[] values;
-    private static Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,6 @@ public class beam extends baseprefs implements AsyncResponse {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_beam);
-
-        nextButton = (Button) findViewById(R.id.buttonDone);
     }
 
     @Override
@@ -128,6 +125,7 @@ public class beam extends baseprefs implements AsyncResponse {
 
     // log user in if not logged in or continue on if already logged in
     public void nextButton(View view) {
+            Button nextButton = (Button) findViewById(R.id.buttonDone);
             nextButton.setEnabled(false);
             if (copyCreds()) {
                 setupDB();

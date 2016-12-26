@@ -2,7 +2,6 @@ package com.tomkowapp.eulen;
 
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,9 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,10 +27,6 @@ public class register extends nfctagbase implements AsyncResponse{
     private String pin;
     private String regid;
     private int connectAttempts = 0;
-    private static EditText editTextAccount;
-    private static EditText editTextPassphrase;
-    private static EditText editTextPin;
-    private static Button buttonRegister;
     private EulenClient eulenClient;
 
     private EulenUtils eulenUtils = new EulenUtils();
@@ -66,35 +59,6 @@ public class register extends nfctagbase implements AsyncResponse{
         if(toolbar != null) {
             toolbar.setTitle(getString(R.string.title_activity_register));
         }
-
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.containerRegister, new PlaceholderFragment())
-                    .commit();
-        }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-            View rootView = inflater.inflate(R.layout.fragment_register, container, false);
-
-            editTextAccount = (EditText) rootView.findViewById(R.id.editTextAccount);
-            editTextPassphrase = (EditText) rootView.findViewById(R.id.editTextPassphrase);
-            editTextPin = (EditText) rootView.findViewById(R.id.editTextPin);
-            buttonRegister = (Button) rootView.findViewById(R.id.buttonRegister);
-
-            return rootView;
-        }
     }
 
     // handle account selcction intent return
@@ -102,6 +66,7 @@ public class register extends nfctagbase implements AsyncResponse{
                                     final Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+            EditText editTextAccount = (EditText) findViewById(R.id.editTextAccount);
             editTextAccount.setText(accountName);
         } else if (requestCode == 2) {
             if(connectAttempts < 1) {
@@ -138,6 +103,10 @@ public class register extends nfctagbase implements AsyncResponse{
     // validate registration form
     @Override
     protected boolean validate() {
+        EditText editTextAccount = (EditText) findViewById(R.id.editTextAccount);
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphrase);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPin);
+
         String hash;
         Boolean connection;
 
@@ -244,16 +213,36 @@ public class register extends nfctagbase implements AsyncResponse{
 
     // lock or unlock gui elements
     private void lockGUI() {
-        editTextAccount.setEnabled(false);
-        editTextPassphrase.setEnabled(false);
-        editTextPin.setEnabled(false);
-        buttonRegister.setEnabled(false);
+        EditText editTextAccount = (EditText) findViewById(R.id.editTextAccount);
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphrase);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPin);
+        Button buttonRegister = (Button) findViewById(R.id.buttonRegister);
+
+        if(editTextAccount != null &
+                editTextPassphrase != null &
+                editTextPin != null &
+                buttonRegister != null) {
+            editTextAccount.setEnabled(false);
+            editTextPassphrase.setEnabled(false);
+            editTextPin.setEnabled(false);
+            buttonRegister.setEnabled(false);
+        }
     }
 
     private void unlockGUI() {
-        editTextAccount.setEnabled(true);
-        editTextPassphrase.setEnabled(true);
-        editTextPin.setEnabled(true);
-        buttonRegister.setEnabled(true);
+        EditText editTextAccount = (EditText) findViewById(R.id.editTextAccount);
+        EditText editTextPassphrase = (EditText) findViewById(R.id.editTextPassphrase);
+        EditText editTextPin = (EditText) findViewById(R.id.editTextPin);
+        Button buttonRegister = (Button) findViewById(R.id.buttonRegister);
+
+        if(editTextAccount != null &
+                editTextPassphrase != null &
+                editTextPin != null &
+                buttonRegister != null) {
+            editTextAccount.setEnabled(true);
+            editTextPassphrase.setEnabled(true);
+            editTextPin.setEnabled(true);
+            buttonRegister.setEnabled(true);
+        }
     }
 }
