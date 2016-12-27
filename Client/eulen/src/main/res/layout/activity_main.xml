@@ -86,7 +86,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="175dp"
                 android:gravity="center"
                 android:background="@drawable/wearbg">
 
@@ -167,7 +167,7 @@
 
             <ListView
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:id="@+id/mainOptionsMenu" />
 
         </LinearLayout>

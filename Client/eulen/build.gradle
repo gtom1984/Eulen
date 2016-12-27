@@ -6,8 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 23
-        versionName "1.6.6"
+        versionCode 25
+        versionName "1.6.8"
         multiDexEnabled true
         applicationId "com.tomkowapp.eulen"
     }
@@ -17,7 +17,8 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
 }

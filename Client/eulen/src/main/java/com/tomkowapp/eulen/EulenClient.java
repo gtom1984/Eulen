@@ -79,7 +79,7 @@ class EulenClient {
     }
 
     // return list of messages (in main thread so wrap in async when used)
-    public JSONObject list() { //optional regid to use list as a quick way to update regids
+    JSONObject list() { //optional regid to use list as a quick way to update regids
         HashMap<String, String> postVars = new HashMap<>();
         postVars.put(CONST.COMMAND, CONST.LIST);
         postVars.put(CONST.PASSWORD, serverPassword);
@@ -88,7 +88,7 @@ class EulenClient {
     }
 
     // same as list but updates reg_id for GCM
-    public JSONObject list(String reg_id) { //optional regid to use list as a quick way to update regids
+    JSONObject list(String reg_id) { //optional regid to use list as a quick way to update regids
         HashMap<String, String> postVars = new HashMap<>();
         postVars.put(CONST.COMMAND, CONST.LIST);
         postVars.put(CONST.PASSWORD, serverPassword);

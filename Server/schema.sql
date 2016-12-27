@@ -62,7 +62,7 @@ CREATE TABLE `user` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `reg_id` varchar(512) NOT NULL,
+  `reg_id` TEXT NOT NULL,
   `code` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`email`),
