@@ -309,41 +309,44 @@ app.post('/' + CONST_COMMAND, function(request, response) {
 
 		case CONST_INFO:  // quick info for admin
 		  var hashedAccount = crypto.createHash(CONST_HASH).update(config.admin_account).digest(CONST_DIGEST);
-
 		  if(hashedAccount == user.email) {
                     connection.query("SELECT COUNT(*) as c FROM user", function(err, rows1) {
-		      if(err) { //  handle errors
-                        dbError();
-		      } else { // else continue
-			if(rows1.length > 0) {
-                          connection.query("SELECT * FROM `node`", function(err, rows2) {
-			      if(err) { // handle errors
-				dbError();
-			      } else { // else continue
-				if(rows2.length > 0) {
-				  output.success = true;
-				  output.replying_node = instanceID;
-				  output.all_nodes = rows2;
-				  output.database_id = config.dbid;
-				  output.user_count = rows1[0].c;
-                                  output.snowflake_test = intformat(snowflake.next(), CONST_SNOWFLAKE_MON);
-				  outputJSON(output);
-				} else {
-				  output.error = CONST_NO_DATA;
-				  outputJSON(output);
-				}
-			      }
-			  });
-			} else {
-			  output.error = CONST_NO_DATA;
-			  outputJSON(output);
-			}
-		      }
-		    });
+                      if(err) {
+                        output.user_count = CONST_ERROR;
+                      } else {
+                        output.user_count = rows1[0].c;
+                      }
+                      connection.query("SELECT * FROM `node`", function(err, rows2) {
+                        if(err) {
+                          output.all_nodes = CONST_ERROR;
+                        } else {
+                          output.all_nodes = rows2;
+                        }
+                        connection.query("SELECT COUNT(*) as c FROM stats WHERE `type` = ?", ['txt'], function(err, rows3) {
+                          if(err) {
+                            output.msg_txt = CONST_ERROR;
+                          } else {
+                            output.msg_txt = rows3[0].c;
+                          }
+                          connection.query("SELECT COUNT(*) as c FROM stats WHERE `type` = ?", ['img'], function(err, rows4) {
+                            if(err) {
+                              output.msg_img = CONST_ERROR;
+                            } else {
+                              output.msg_img = rows4[0].c;
+                            }
+                            output.replying_node = instanceID;
+                            output.database_id = config.dbid;
+                            output.snowflake_test = intformat(snowflake.next(), CONST_SNOWFLAKE_MON);
+                            output.success = true;
+                            outputJSON(output);
+                          });
+                        });
+                      });
+                    });
 		  } else {
-		      output.success = false;
-                      output.error = CONST_ACCOUNT;
-		      outputJSON(output);
+                    output.success = false;
+                    output.error = CONST_ACCOUNT;
+                    outputJSON(output);
 		  }
 		break;
 
@@ -389,6 +392,9 @@ app.post('/' + CONST_COMMAND, function(request, response) {
                                             }
                                             dbError();
                                           } else {
+                                            connection.query("INSERT INTO `stats` (`type`) VALUES (?)", ['txt'], function(err, result) {
+                                                // do nothing, just a simple count of messages, no timestamps or user data
+                                            });
                                             output.success = true;
                                             outputJSON(output);
                                             gcm(reg_id, CONST_SYNC);
@@ -402,6 +408,9 @@ app.post('/' + CONST_COMMAND, function(request, response) {
                                             }
                                             dbError();
                                           } else {
+                                            connection.query("INSERT INTO `stats` (`type`) VALUES (?)", ['img'], function(err, result) {
+                                                // do nothing, just a simple count of messages, no timestamps or user data
+                                            });
                                             output.success = true;
                                             outputJSON(output);
                                             gcm(reg_id, CONST_SYNC);
